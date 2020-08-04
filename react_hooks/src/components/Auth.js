@@ -8,6 +8,7 @@ const Auth = props => {
   const authContext = useContext(AuthContext);
 
   const loginSubmit = () => {
+    console.log(authContext);
     authContext.login();
   };
 
