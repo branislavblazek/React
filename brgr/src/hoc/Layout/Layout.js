@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import Hoc from '../Hoc.js';
 import './Layout.scss';
@@ -26,8 +27,11 @@ class Layout extends React.Component {
     {
         return (
             <Hoc>
-                <Toolbar openHamburger={this.SideDrawerOpenHandler} />
+                <Toolbar 
+                    isAuth={this.props.isAuthenticated}
+                    openHamburger={this.SideDrawerOpenHandler} />
                 <SideDrawer 
+                    isAuth={this.props.isAuthenticated}
                     closed={this.SideDrawerCloseHandler} 
                     open={this.state.showSideDrawer}
                 />
@@ -40,4 +44,10 @@ class Layout extends React.Component {
     
 }
 
-export default Layout;
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.token !== null
+    };
+};
+
+export default connect(mapStateToProps)(Layout);
